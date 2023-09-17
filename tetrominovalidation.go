@@ -15,6 +15,9 @@ func (s *Solver) ValidateTetrominos() bool {
 			return false
 		}
 		for i, row := range tetromino.Shape {
+			if len(row) != 4 {
+				return false
+			}
 			for j, ch := range row {
 				if ch {
 					hashcount++

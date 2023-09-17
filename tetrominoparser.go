@@ -2,6 +2,7 @@ package tetops
 
 import (
 	"bufio"
+	"log"
 	"os"
 )
 
@@ -28,8 +29,10 @@ func ParseTetrominoesFromFile(filePath string) ([]Tetromino, error) {
 			for _, ch := range line {
 				if ch == '#' {
 					row = append(row, true)
-				} else {
+				} else if ch == '.' {
 					row = append(row, false)
+				} else {
+					log.Fatal("ERROR")
 				}
 			}
 			tetrominoShape = append(tetrominoShape, row)
