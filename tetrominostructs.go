@@ -6,6 +6,6 @@ type Tetromino struct {
 
 type Solver struct {
 	Tetrominoes []Tetromino
-	Solution    [][]bool
+	Solution    [][]rune
 	Size        int
 }

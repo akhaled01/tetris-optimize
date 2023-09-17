@@ -19,13 +19,14 @@ func main() {
 	}
 
 	solver := tetops.NewSolver(tetrominoes)
+	solver.ReArrangeTetrominoes()
 	if solver.Solve() {
 		fmt.Printf("Smallest square size: %d\n", solver.Size)
 		fmt.Println("Solution:")
 		for _, row := range solver.Solution {
 			for _, cell := range row {
-				if cell {
-					fmt.Print("#") // Filled cell
+				if cell != '.' {
+					fmt.Print(string(cell)) // Filled cell
 				} else {
 					fmt.Print(".") // Empty cell
 				}
