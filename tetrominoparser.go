@@ -7,20 +7,18 @@ import (
 
 func ParseTetrominoesFromFile(filePath string) ([]Tetromino, error) {
 	file, err := os.Open(filePath)
+	var emptylinecount int
 	if err != nil {
 		return nil, err
 	}
 	defer file.Close()
-
 	scanner := bufio.NewScanner(file)
-
 	var tetrominoes []Tetromino
 	var tetrominoShape [][]bool
-
 	for scanner.Scan() {
 		line := scanner.Text()
-
 		if line == "" {
+			emptylinecount++
 			if len(tetrominoShape) > 0 {
 				tetrominoes = append(tetrominoes, Tetromino{Shape: tetrominoShape})
 				tetrominoShape = nil
@@ -37,14 +35,12 @@ func ParseTetrominoesFromFile(filePath string) ([]Tetromino, error) {
 			tetrominoShape = append(tetrominoShape, row)
 		}
 	}
-
 	if len(tetrominoShape) > 0 {
 		tetrominoes = append(tetrominoes, Tetromino{Shape: tetrominoShape})
 	}
-
 	if err := scanner.Err(); err != nil {
 		return nil, err
 	}
-	
+
 	return tetrominoes, nil
 }

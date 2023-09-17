@@ -12,13 +12,17 @@ func main() {
 		fmt.Println("[USAGE]: go run . <tetromino_file>")
 		os.Exit(1)
 	}
-
+	tetops.CheckEmptyLineFollowedByEmptyLine(os.Args[1])
 	tetrominoes, err := tetops.ParseTetrominoesFromFile(os.Args[1])
 	if err != nil {
 		log.Fatal(err)
 	}
-
+	
 	solver := tetops.NewSolver(tetrominoes)
+	if !solver.ValidateTetrominos() {
+		fmt.Println("ERROR")
+		return
+	}
 	solver.ReArrangeTetrominoes()
 	if solver.Solve() {
 		fmt.Printf("Smallest square size: %d\n", solver.Size)
